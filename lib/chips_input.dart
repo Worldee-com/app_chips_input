@@ -622,11 +622,11 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
         focusNode: focusNode,
         textEditingController: controller,
         optionsBuilder: (TextEditingValue textEditingValue) {
-          if (textEditingValue.text.length < _chips.length) {
+       /*   if (textEditingValue.text.length < _chips.length) {
             _deleteLastChips(textEditingValue.text.length);
-          }
+          }*/
           final options = widget
-              .findSuggestions(textEditingValue.text.replaceAll("$space", ""));
+              .findSuggestions(textEditingValue.text);
           final notUsedOptions =
               options.where((r) => !_chips.contains(r)).toList(growable: false);
           return notUsedOptions;
