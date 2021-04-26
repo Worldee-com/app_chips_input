@@ -1,14 +1,14 @@
 library chips_input;
 
-import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'dart:ui' as ui show BoxHeightStyle, BoxWidthStyle;
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 typedef ChipsInputSuggestions<T> = List<T> Function(String query);
 typedef ChipSelected<T> = void Function(T data, bool selected);
@@ -554,7 +554,7 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
     registerForRestoration(_controller!, 'controller');
   }
 
-  void _addChip(T newValue) {
+  void addChip(T newValue) {
     setState(() {
       _chips = [..._chips, newValue];
     });
@@ -632,7 +632,7 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
           return notUsedOptions;
         },
         onSelected: (T option) {
-          _addChip(option);
+          addChip(option);
         },
         displayStringForOption: (T option) {
           return [..._chips.map((e) => "$space"), "$space"].join();
