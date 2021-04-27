@@ -580,7 +580,7 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
   void deleteChip(T data) {
     if (widget.enabled == null || widget.enabled!) {
       setState(() {
-        _effectiveController.text = _effectiveController.text.substring(0);
+        _effectiveController.text = '';
         _chips = _chips..remove(data);
       });
       if (widget.onChanged != null)
