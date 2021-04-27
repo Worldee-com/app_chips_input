@@ -489,14 +489,17 @@ class ChipsInput<T extends Object> extends StatefulWidget {
 class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
     with RestorationMixin {
   RestorableTextEditingController? _controller;
+
   TextEditingController get _effectiveController =>
       widget.controller ?? _controller!.value;
 
   List<T> _chips = [];
   final space = '\u200B'; //'\u200B'; // '*';
   FocusNode? _focusNode;
+
   FocusNode get _effectiveFocusNode =>
       widget.focusNode ?? (_focusNode ??= FocusNode());
+
   bool get _isEnabled => widget.enabled ?? widget.decoration?.enabled ?? true;
 
   @override
@@ -556,6 +559,7 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
 
   void addChip(T newValue) {
     setState(() {
+      _effectiveController.text = '';
       _chips = [..._chips, newValue];
     });
     if (widget.onChanged != null)
@@ -576,7 +580,7 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
   void deleteChip(T data) {
     if (widget.enabled == null || widget.enabled!) {
       setState(() {
-        _effectiveController.text = _effectiveController.text.substring(1);
+        _effectiveController.text = _effectiveController.text.substring(0);
         _chips = _chips..remove(data);
       });
       if (widget.onChanged != null)
@@ -622,11 +626,10 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
         focusNode: focusNode,
         textEditingController: controller,
         optionsBuilder: (TextEditingValue textEditingValue) {
-       /*   if (textEditingValue.text.length < _chips.length) {
+          /*   if (textEditingValue.text.length < _chips.length) {
             _deleteLastChips(textEditingValue.text.length);
           }*/
-          final options = widget
-              .findSuggestions(textEditingValue.text);
+          final options = widget.findSuggestions(textEditingValue.text);
           final notUsedOptions =
               options.where((r) => !_chips.contains(r)).toList(growable: false);
           return notUsedOptions;
