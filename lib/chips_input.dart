@@ -508,7 +508,7 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
     _chips.addAll(widget.initialValue);
     String chipSpaces = _chips.map((e) => "$space").join();
     if (widget.controller == null) {
-      _createLocalController(TextEditingValue(text: chipSpaces));
+      _createLocalController(TextEditingValue(text: ''));
     } else {
       _effectiveController.text = "$chipSpaces${_effectiveController.text}";
     }
