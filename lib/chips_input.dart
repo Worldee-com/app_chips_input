@@ -579,7 +579,7 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
     if (widget.enabled == null || widget.enabled!) {
       setState(() {
         _chips = _chips..remove(data);
-        _effectiveController.text = _effectiveController.text.substring(1);
+        _effectiveController.text = _effectiveController.text.substring(0);
         _effectiveController.selection = TextSelection.fromPosition(
             TextPosition(offset: _effectiveController.text.length));
       });
@@ -705,15 +705,8 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
             onTap: () {
               FocusScope.of(context).requestFocus(focusNode);
             },
-            child: AnimatedBuilder(
-              animation: Listenable.merge(<Listenable>[focusNode, controller]),
-              builder: (context, child) => InputDecorator(
-                isFocused: focusNode.hasFocus,
-                isEmpty: textEditingController.value.text.isEmpty,
-                decoration: widget.decoration ?? InputDecoration(),
-                expands: widget.expands,
-                child: child,
-              ),
+            child: Container(
+              width: MediaQuery.of(context).size.width - 20,
               child: Wrap(
                 spacing: 4,
                 runSpacing: 4,
