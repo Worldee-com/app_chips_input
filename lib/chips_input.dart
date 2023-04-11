@@ -71,6 +71,7 @@ class ChipsInput<T extends Object> extends StatefulWidget {
     this.scrollController,
     this.scrollPhysics,
     this.restorationId,
+    this.inputDecoration,
   })  : assert(obscuringCharacter.length == 1),
         smartDashesType = smartDashesType ??
             (obscureText ? SmartDashesType.disabled : SmartDashesType.enabled),
@@ -480,6 +481,8 @@ class ChipsInput<T extends Object> extends StatefulWidget {
   /// default.
   final AutocompleteOptionsViewBuilder<T>? optionsViewBuilder;
 
+  final InputDecoration? inputDecoration;
+
   @override
   ChipsInputState<T> createState() => ChipsInputState<T>();
 }
@@ -691,12 +694,13 @@ class ChipsInputState<T extends Object> extends State<ChipsInput<T>>
                 selectionControls: widget.selectionControls,
                 mouseCursor: widget.mouseCursor,
                 buildCounter: widget.buildCounter,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: widget.decoration?.hintText,
-                    counterText: "",
-                    isDense: true,
-                    contentPadding: EdgeInsets.symmetric(vertical: 5)),
+                decoration: widget.inputDecoration ??
+                    InputDecoration(
+                        border: InputBorder.none,
+                        hintText: widget.decoration?.hintText,
+                        counterText: "",
+                        isDense: true,
+                        contentPadding: EdgeInsets.symmetric(vertical: 5)),
               ),
             )
           ];
